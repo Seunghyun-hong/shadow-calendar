@@ -110,6 +110,7 @@ public class CalendarAdapter extends BaseAdapter {
         // 데이터 가져와서 뿌리기!!==============================
         // data  (데이터는 뭐 건들지 않았음.)
         MyDate myDate = mItems.get(position); // 해당번째의 데이터를 가져온다.
+//        MyDate myDate = (MyDate) getItem(position); // 해당번째의 데이터를 가져온다. 2가지 방법이 있다.
 
         // 그런데 우리는 1일 요일이 일요일이 아니면 공백을 넣어줬기 때문에 분기타줘야한다.
         if (myDate != null) {
@@ -117,12 +118,12 @@ public class CalendarAdapter extends BaseAdapter {
             c.setTime(myDate.getDate()); // 그 c값을 해당번째 날짜로 바꿔준다.
 
             // 뿌리기  (뿌릴땐 holder가 들고 있으니까 홀더로 바꿔주면 됨.)
-            holder.date.setText(c.get(Calendar.DATE));
+            holder.date.setText(""+c.get(Calendar.DATE));
             // c가 해당번째 날짜(만약 2라면)로 바뀌었으니까 그아이의 캘린더.데이트는 해당일(2)이 나오겠지.
 
             // 같은 방식으로 음력도 넣어준다.
             c.setTime(myDate.getLune());
-            holder.date.setText(c.get(Calendar.DATE));
+            holder.lune.setText(""+mSimpleDateFormat.format(c.get(Calendar.DATE)));
         } else {
             //데이터가 없다면..
             holder.date.setText("");
