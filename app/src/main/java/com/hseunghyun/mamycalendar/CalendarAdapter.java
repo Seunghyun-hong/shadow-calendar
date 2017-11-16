@@ -122,7 +122,7 @@ public class CalendarAdapter extends BaseAdapter {
             // c가 해당번째 날짜(만약 2라면)로 바뀌었으니까 그아이의 캘린더.데이트는 해당일(2)이 나오겠지.
 
             // 같은 방식으로 음력도 넣어준다.
-            c.setTime(myDate.getLune());
+            c.setTime(myDate.getLune()); // 왜 널포인트 뜨지?
             holder.lune.setText(""+mSimpleDateFormat.format(c.get(Calendar.DATE)));
         } else {
             //데이터가 없다면..
