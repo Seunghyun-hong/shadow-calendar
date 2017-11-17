@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         gridView.setAdapter(adapter);
 
 
-        Log.d(TAG, "onCreate: 메인에서도 안나오나?" + dates.get(0).getLune());
+//        Log.d(TAG, "onCreate: 메인에서도 안나오나?" + dates.get(0).getLune());
 
     }
 

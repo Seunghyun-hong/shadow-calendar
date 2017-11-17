@@ -17,7 +17,24 @@ public interface RunaApi {
     String APP_ID = "8GCtCtVkRWZEDetec2si8Jxzc38BCUEvCrgnZr03jgzyS9GfVpbu4DuFY%2FtBb3Z7mdhnOi7yobKCoWTa64swMQ%3D%3D";
 
     @GET("getLunCalInfo?_type=json&ServiceKey=" + APP_ID)
-    Call<Runa> caculaterDay(@Query("solYear") String solYear,
+    Call<Runa> getCaculaterDay(@Query("solYear") String solYear,
                             @Query("solMonth") String solMonth,
                             @Query("solDay") String solDay);
+}
+
+class lunaUtil {
+//    TaskService taskService = ServiceGenerator.createService(TaskService.class);
+//    Call<List<Task>> call = taskService.getTasks();
+//    List<Task>> tasks = call.execute().body();
+
+//    public interface TaskService {
+//        @GET("/tasks")
+//        Call<List<Task>> getTasks();
+//    }
+
+//    GitHubService gitHubService = GitHubService.retrofit.create(GitHubService.class);
+//    Call<List<Contributor>> call = gitHubService.repoContributors("square", "retrofit");
+
+
+
 }
