@@ -50,6 +50,7 @@ public class CalendarAdapter extends BaseAdapter {
     // position번째의 레이아웃 완성 해서 알려줘야 함
     // convertView - position번째의 레이아웃의 레퍼런스
     // parent - 이 어댑터가 붙을 부모의 레퍼런스 (ListView나 GridView)
+
     @Override // 여기만 바뀐다.
     public View getView(int position, View convertView, ViewGroup parent) {
         // 여기서 View getView 로 하는건 어째는 리스트뷰든 그리드뷰든 각각 하나의 뷰를 모아둔 것이기 때문에
@@ -116,17 +117,28 @@ public class CalendarAdapter extends BaseAdapter {
         if (myDate != null) {
             Calendar c = Calendar.getInstance(); // 날짜를 가져온다
             c.setTime(myDate.getDate()); // 그 c값을 해당번째 날짜로 바꿔준다.
+            Log.d(TAG, "getView: c의 시간을 알아보자" + c.getTime());
 
             // 뿌리기  (뿌릴땐 holder가 들고 있으니까 홀더로 바꿔주면 됨.)
             holder.date.setText("" + c.get(Calendar.DATE));
+            Log.d(TAG, "getView: holder.date.gettext은 뭐가 나옴?==============" + holder.date.getText());
             // c가 해당번째 날짜(만약 2라면)로 바뀌었으니까 그아이의 캘린더.데이트는 해당일(2)이 나오겠지.
 /*
 왜 널포인트가 뜨는지 모르겠네..
 * */
             // 같은 방식으로 음력도 넣어준다.
-            Log.d(TAG, "getView: 룬님이 널이니까 당연히 안나오는게 맞지" + myDate.getLune());
-            c.setTime(myDate.getLune()); // 왜 널포인트 뜨지?
-            holder.lune.setText("" + mSimpleDateFormat.format(c.get(Calendar.DATE)));
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Calendar c1 = Calendar.getInstance(); // 날짜를 가져온다
+            c1.setTime(myDate.getLune()); // 왜 널포인트 뜨지?
+            Log.d(TAG, "getView: 룬님이 널이니까 당연히 안나오는게 맞지" + myDate.getLune());  // 엇 쉬니까 여기까지 온다.
+            Log.d(TAG, "getView: c1의 타임을 알아보자." + c1.getTime());
+//            holder.lune.setText("" + mSimpleDateFormat.format(c1.get(Calendar.DATE)));
+            holder.lune.setText(c1.get(Calendar.MONTH)+"."+ c1.get(Calendar.DATE));
+            Log.d(TAG, "getView: holder.lune.gettext은 뭐가 나옴? --------------" + holder.lune.getText());
         } else {
             //데이터가 없다면..
             holder.date.setText("");
