@@ -38,6 +38,7 @@ public class MyDate {
         // 음력 계산
         // lun =
         convertDateToLune();
+        Log.d(TAG, "MyDate: 4. 음력 잘 만들어 지고 있지?" + lune);
     }
 
     public Date getDate() {
@@ -91,21 +92,32 @@ public class MyDate {
 
         mApiService = retrofit.create(RunaApi.class);
 
-        mApiService.caculaterDay(year,month,day).enqueue(new Callback<Runa>() {
-            @Override
-            public void onResponse(Call<Runa> call, Response<Runa> response) {
-               int lunDayOfMonth = response.body().getResponse().getBody().getItems().getItem().getLunDay();
-               int lunMothe= response.body().getResponse().getBody().getItems().getItem().getLunMonth();
-               int lunYear= response.body().getResponse().getBody().getItems().getItem().getLunYear();
+        Log.d(TAG, "convertDateToLune: 1. 레트로핏은 작동하니?" + mApiService);
 
-               Date imsidate = new Date(lunYear,lunMothe,lunDayOfMonth);
-               lune = imsidate;
-            }
+        try {
+            mApiService.caculaterDay(year, month, day).enqueue(new Callback<Runa>() {
+                @Override
+                public void onResponse(Call<Runa> call, Response<Runa> response) {
+                    int lunDayOfMonth = response.body().getResponse().getBody().getItems().getItem().getLunDay();
+                    int lunMothe = response.body().getResponse().getBody().getItems().getItem().getLunMonth();
+                    int lunYear = response.body().getResponse().getBody().getItems().getItem().getLunYear();
 
-            @Override
-            public void onFailure(Call<Runa> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-            }
-        });
+                    Date imsidate = new Date(lunYear, lunMothe, lunDayOfMonth);
+                    lune = imsidate;
+
+                    Log.d(TAG, "onResponse: 2. 음력 잘 나오나?" + lune); // 잘 작동하는데...
+                }
+
+                @Override
+                public void onFailure(Call<Runa> call, Throwable t) {
+                    Log.d(TAG, "onFailure: 음력받아오기 실패 " + t.getLocalizedMessage());
+                    lune = date;
+                }
+            });
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "convertDateToLune: 3. 음력 최종 (잘되면 요일도나옴/안되면 널이나 숫자)  " + lune);
     }
 }

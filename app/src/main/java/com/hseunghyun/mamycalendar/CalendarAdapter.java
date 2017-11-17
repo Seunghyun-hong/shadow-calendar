@@ -1,5 +1,6 @@
 package com.hseunghyun.mamycalendar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.Locale;
 public class CalendarAdapter extends BaseAdapter {
 
     private SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM.dd", Locale.getDefault());
+    private String TAG = MainActivity.class.getSimpleName();
 
     private List<MyDate> mItems = new ArrayList<>(); //실제 데이터를 받아온다
 
@@ -95,8 +97,6 @@ public class CalendarAdapter extends BaseAdapter {
             holder.lune = convertView.findViewById(R.id.lune_text_view);
 
 
-
-
             // 그러고 컨버터뷰에 셋테그에 연결해주자.=================
             convertView.setTag(holder); //이 태그는 별다른 기능없이 약간에 꼬리표 붙여주는 개념? 저장개념이라고 생각하면 되려나?
             // 그래서 이걸 써줌으로써 태그 들렁오니까 재활용 할때도 이용할 수 있지.
@@ -118,12 +118,15 @@ public class CalendarAdapter extends BaseAdapter {
             c.setTime(myDate.getDate()); // 그 c값을 해당번째 날짜로 바꿔준다.
 
             // 뿌리기  (뿌릴땐 holder가 들고 있으니까 홀더로 바꿔주면 됨.)
-            holder.date.setText(""+c.get(Calendar.DATE));
+            holder.date.setText("" + c.get(Calendar.DATE));
             // c가 해당번째 날짜(만약 2라면)로 바뀌었으니까 그아이의 캘린더.데이트는 해당일(2)이 나오겠지.
-
+/*
+왜 널포인트가 뜨는지 모르겠네..
+* */
             // 같은 방식으로 음력도 넣어준다.
+            Log.d(TAG, "getView: 룬님이 널이니까 당연히 안나오는게 맞지" + myDate.getLune());
             c.setTime(myDate.getLune()); // 왜 널포인트 뜨지?
-            holder.lune.setText(""+mSimpleDateFormat.format(c.get(Calendar.DATE)));
+            holder.lune.setText("" + mSimpleDateFormat.format(c.get(Calendar.DATE)));
         } else {
             //데이터가 없다면..
             holder.date.setText("");

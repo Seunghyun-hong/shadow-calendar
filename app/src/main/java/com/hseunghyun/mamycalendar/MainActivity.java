@@ -50,11 +50,15 @@ public class MainActivity extends AppCompatActivity {
         }
         //================================================================
 
+//        Log.d(TAG, "onCreate: 룬의 아이를 찾습니다. " + dates.get(0).getLune());
+
         //데이터를 만들었으면 어뎁터를 만들어서 이걸 꽂아야 겠지?
         GridView gridView = findViewById(R.id.grid_view);
         CalendarAdapter adapter = new CalendarAdapter(dates);
         gridView.setAdapter(adapter);
 
+
+        Log.d(TAG, "onCreate: 메인에서도 안나오나?" + dates.get(0).getLune());
 
     }
 
